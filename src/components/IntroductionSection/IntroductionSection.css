@@ -4,7 +4,7 @@
     POSITION: RELATIVE;
     background: rgb(32,41,51);
     background: var(--introduction-background-gradient-color);
-    padding-top: 35px;
+    padding-top: 70px;
     /* background: #162942;
     background: linear-gradient(180deg, rgba(22, 41, 66, 1) 0%, rgba(34, 34, 34, 1) 79%); */
 }

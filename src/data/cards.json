@@ -7,7 +7,9 @@
             "title": "Github", 
             "text": "A sample of my code", 
             "buttontext": "Visit site",
-            "buttonURL": "https://github.com/NickParonis"
+            "buttonURL": "https://github.com/NickParonis",
+            "downloadFile": false,
+            "downloadFileName": ""
         },
         {
             "color": "blue", 
@@ -15,7 +17,9 @@
             "title": "Linkedin", 
             "text": "My corporate experience", 
             "buttontext": "Visit site",
-            "buttonURL": "https://www.linkedin.com/in/nick-d-paronis/"
+            "buttonURL": "https://www.linkedin.com/in/nick-d-paronis/",
+            "downloadFile": false,
+            "downloadFileName": ""
         },
         {
             "color": "blue", 
@@ -23,7 +27,9 @@
             "title": "Resume", 
             "text": "Get my latest CV", 
             "buttontext": "Download",
-            "buttonURL": ""
+            "buttonURL": "",
+            "downloadFile": true,
+            "downloadFileName": "NikolaosParonisResume2025.pdf"
         }
     ]
 }
