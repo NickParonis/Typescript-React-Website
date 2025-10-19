@@ -1,7 +1,5 @@
 import './ContactSection.css';
 import { useState } from 'react';
-import { FloatingLabelInput } from './FloatingLabelInput.tsx';
-import classes from './FloatingLabelInput.module.css';
 
 
 
@@ -16,7 +14,6 @@ const ContactSection = () => {
         <section className='contact'>
             <div className='contactContainer'>
                 <div className='contactForm'>
-                <FloatingLabelInput    />
                 </div>
             </div>
         </section>
