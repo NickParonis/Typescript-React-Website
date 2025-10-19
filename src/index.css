@@ -59,6 +59,10 @@
   box-sizing: border-box;
 }
 
+*{
+  text-decoration: none;
+}
+
 body {
   font-size: var(--normal-font-size);
   background-color: var(--bg-color);

@@ -3,6 +3,7 @@ import "./Navbar.css";
 
 const Navbar = () => {
     const [isLightMode, setIsLightMode] = useState<boolean>(false);
+    const [mobileMenuIsActive, setMobileMenuIsActive] = useState<boolean>(false);
 
     const switchLightMode = () => {
         const root = document.documentElement;
@@ -13,7 +14,11 @@ const Navbar = () => {
           root.setAttribute("data-theme", "light");
           setIsLightMode(true);
         }
-      };
+    };
+
+    const toggleMenu = () => {
+        setMobileMenuIsActive(!mobileMenuIsActive)
+    };
 
     useEffect(() => {
         const links = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
@@ -51,15 +56,15 @@ const Navbar = () => {
         <nav id="navbar" className="">
             <div className="nav-container">
                 <div className="nav-items">
-                    {/* <!-- Logo --> */}
-                    {/* <div className="flex items-center">
-                        <div className="text-xl font-medium bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent flex items-center">
-                            FutureNav
-                        </div>
-                    </div> */}
+
+
+                    <div className={`nav-mobile nav-icon menu-btn-1 ${mobileMenuIsActive ? "active" : ""}`}
+                        onClick={() => toggleMenu()}>
+                        <span></span>
+                    </div>
 
                     {/* <!-- Desktop Navigation --> */}
-                    <div className="nav-desktop hidden md:flex items-center space-x-1">
+                    <div className="nav-desktop">
                         <a href="#introductionSection" className="nav-link">Home</a>
                         <a href="#cardlistSection" className="nav-link">Experience</a>
                         <a href="#contactSection" className="nav-link">Contact</a>
@@ -87,9 +92,12 @@ const Navbar = () => {
                         {/* <div className="nav-icon" aria-label="Source code" >
                             <i className="fa-brands fa-github"></i>
                         </div> */}
-                        <div className="nav-icon" aria-label="Source code" >
-                            <i className="fa-brands fa-discord"></i>
-                        </div>
+                        <a href="https://discord.gg/9ySCnmckXg" target="_blank">
+                            <div className="nav-icon" aria-label="Source code">
+                                <i className="fa-brands fa-discord"></i>
+                            </div>
+                        </a>
+
                         <div className="nav-icon" 
                             aria-label="Source code"
                             onClick={() => switchLightMode()}>
