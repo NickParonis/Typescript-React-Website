@@ -17,9 +17,15 @@
     align-items: center;
 }
   
-.fa-moon {color: var(--primary-blue);}
+.fa-moon {
+  color: var(--primary-blue);
+  font-size: 21px;
+}
   
-.fa-sun {color: var(--primary-blue);}
+.fa-sun {
+  color: var(--primary-blue);
+  font-size: 21px;
+}
   
 .checkbox-label .ball {
     background-color: #c2cdf9;
@@ -100,7 +106,33 @@
     overflow: hidden;
     text-decoration: none;
   }
+
+  .nav-svg{
+    width:25px;
+    height:25px;
+  }
   
+  .nav-icons{
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #424242;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-blue);
+    margin: 5px;
+  }
+
+  .nav-icon:hover{
+    background-color: #3b3b3b;
+  }
+
   .nav-link::after {
     content: '';
     position: absolute;
