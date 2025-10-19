@@ -8,11 +8,20 @@
   --bg-color: #222222;
   --primary-dark: #222222;
   --primary-blue: #5b98eb;
+  --primary-red: #ff5f56eb;
+  --primary-yellow: #ffbd2ee6;
+  --primary-green: #27c93f;
+  --dark-color: #2e2e2e;
+  --dark-alt-color: #777777;
+  --white-color: #ffffff;
+  --button-color: #333333;
+  --card-transition: 0.5s ease-in-out;
 
   /*========== Font and typography ==========*/
   --body-font: "Poppins", sans-serif;
   --normal-font-size: 0.938rem;
 
+  /*========== dark theme ==========*/
   --prompt-color: #56749b6e;
   --introduction-background-gradient-color: linear-gradient(180deg, rgba(32,41,51,1) 35%, rgba(32,41,51,1) 68%, rgba(34,34,34,1) 100%);
   --displayGlass-background-color: rgba(255, 255, 255, 0.027);

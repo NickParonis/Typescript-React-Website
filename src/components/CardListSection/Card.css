@@ -3,12 +3,6 @@
 
     opacity: 0; /* start invisible */
     animation: fadeIn 1s ease-in forwards; /* 1s fade-in, keep final state */
-
-    --dark-color: #2e2e2e;
-    --dark-alt-color: #777777;
-    --white-color: #ffffff;
-    --button-color: #333333;
-    --transition: 0.5s ease-in-out;
     margin: 25px;
     font-family: inherit;
     height: 270px;
@@ -18,7 +12,7 @@
     justify-content: center;
     align-items: center;
     background: var(--dark-color);
-    transition: var(--transition);
+    transition: var(--card-transition);
 
   }
   .card__bx::before,
@@ -26,7 +20,7 @@
     content: "";
     position: absolute;
     z-index: -1;
-    transition: var(--transition);
+    transition: var(--card-transition);
   }
   .card__bx:hover::before {
     inset: -10px 40px;
@@ -62,7 +56,7 @@
     font-size: 2rem;
     color: var(--text-color);
     background-color: var(--dark-color);
-    transition: var(--transition);
+    transition: var(--card-transition);
   }
   .card__bx .card__data .card__content {
     display: flex;
@@ -75,116 +69,23 @@
     font-size: 1.3rem;
     font-weight: 500;
     color: var(--white-color);
-    transition: var(--transition);
+    transition: var(--card-transition);
   }
   .card__bx:hover .card__data h3 {
     color: var(--dark-color);
-    transition: var(--transition);
+    transition: var(--card-transition);
   }
   .card__bx .card__data p {
     font-size: 0.7rem;
     color: var(--dark-alt-color);
-    transition: var(--transition);
+    transition: var(--card-transition);
   }
   .card__bx:hover .card__data p {
     color: var(--dark-color);
-    transition: var(--transition);
-  }
-
-/* Classes with color styles*/
-
-
-
-/* purple color: #eb5ae5*/
-  .card__bx__purple .card__data a {
-    position: relative;
-    min-width: 100px;
-    padding: 8px 15px;
-    text-decoration: none;
-    font-weight: 500;
-    margin-top: 10px;
-    border: 2px solid #eb5ae5;
-    color: var(--dark-color);
-    background-color: #eb5ae5;
-    transition: var(--transition);
-  }
-  .card__bx__purple:hover .card__data a {
-    color: #eb5ae5;
-    background-color: var(--dark-color);
-  }
-  .card__bx__purple:hover .card__data a:hover {
-    border-color: var(--dark-color);
-    color: var(--dark-color);
-    background-color: #eb5ae5;
-  }
-  .card__bx__purple .card__data .card__icon {
-    color: #eb5ae5;
-    box-shadow: 0 0 0 4px var(--dark-color), 0 0 0 6px #eb5ae5;
-  }
-  .card__bx__purple:hover .card__data .card__icon {
-    color: var(--dark-color);
-    background-color: #eb5ae5;
-    box-shadow: 0 0 0 4px var(--dark-color), 0 0 0 300px #eb5ae5;
-  }
-  .card__bx__purple::after {
-    inset: 120px -10px;
-    border-left: 4px solid #eb5ae5;
-    /* transform: skew(15deg); */
-    border-right: 4px solid #eb5ae5;
-  }
-  .card__bx__purple::before {
-    inset: -10px 90px;
-    border-top: 4px solid #eb5ae5;
-    /* transform: skewY(15deg); */
-    border-bottom: 4px solid #eb5ae5;
+    transition: var(--card-transition);
   }
 
 
-/* green color: #89ec5b*/
-.card__bx__green .card__data a {
-    position: relative;
-    min-width: 100px;
-    padding: 8px 15px;
-    text-decoration: none;
-    font-weight: 500;
-    margin-top: 10px;
-    border: 2px solid #89ec5b;
-    color: var(--dark-color);
-    background-color: #89ec5b;
-    transition: var(--transition);
-  }
-  .card__bx__green:hover .card__data a {
-    color: #89ec5b;
-    background-color: var(--dark-color);
-  }
-  .card__bx__green:hover .card__data a:hover {
-    border-color: var(--dark-color);
-    color: var(--dark-color);
-    background-color: #89ec5b;
-  }
-  .card__bx__green .card__data .card__icon {
-    color: #89ec5b;
-    box-shadow: 0 0 0 4px var(--dark-color), 0 0 0 6px #89ec5b;
-  }
-  .card__bx__green:hover .card__data .card__icon {
-    color: var(--dark-color);
-    background-color: #89ec5b;
-    box-shadow: 0 0 0 4px var(--dark-color), 0 0 0 300px #89ec5b;
-  }
-  .card__bx__green::after {
-    inset: 120px -10px;
-    border-left: 4px solid #89ec5b;
-    /* transform: skew(15deg); */
-    border-right: 4px solid #89ec5b;
-  }
-  .card__bx__green::before {
-    inset: -10px 90px;
-    border-top: 4px solid #89ec5b;
-    /* transform: skewY(15deg); */
-    border-bottom: 4px solid #89ec5b;
-  }
-
-/* green blue: #5b98eb*/
 .card__bx__blue .card__data a {
     position: relative;
     min-width: 100px;
@@ -192,40 +93,40 @@
     text-decoration: none;
     font-weight: 500;
     margin-top: 10px;
-    border: 2px solid #5b98eb;
+    border: 2px solid var(--primary-blue);
     color: var(--dark-color);
-    background-color: #5b98eb;
-    transition: var(--transition);
+    background-color: var(--primary-blue);
+    transition: var(--card-transition);
   }
   .card__bx__blue:hover .card__data a {
-    color: #5b98eb;
+    color: var(--primary-blue);
     background-color: var(--dark-color);
   }
   .card__bx__blue:hover .card__data a:hover {
     border-color: var(--dark-color);
     color: var(--dark-color);
-    background-color: #5b98eb;
+    background-color: var(--primary-blue);
   }
   .card__bx__blue .card__data .card__icon {
-    color: #5b98eb;
-    box-shadow: 0 0 0 4px var(--dark-color), 0 0 0 6px #5b98eb;
+    color: var(--primary-blue);
+    box-shadow: 0 0 0 4px var(--dark-color), 0 0 0 6px var(--primary-blue);
   }
   .card__bx__blue:hover .card__data .card__icon {
     color: var(--dark-color);
-    background-color: #5b98eb;
-    box-shadow: 0 0 0 4px var(--dark-color), 0 0 0 300px #5b98eb;
+    background-color: var(--primary-blue);
+    box-shadow: 0 0 0 4px var(--dark-color), 0 0 0 300px var(--primary-blue);
   }
   .card__bx__blue::after {
     inset: 120px -10px;
-    border-left: 4px solid #5b98eb;
+    border-left: 4px solid var(--primary-blue);
     /* transform: skew(15deg); */
-    border-right: 4px solid #5b98eb;
+    border-right: 4px solid var(--primary-blue);
   }
   .card__bx__blue::before {
     inset: -10px 90px;
-    border-top: 4px solid #5b98eb;
+    border-top: 4px solid var(--primary-blue);
     /* transform: skewY(15deg); */
-    border-bottom: 4px solid #5b98eb;
+    border-bottom: 4px solid var(--primary-blue);
   }
 
   @keyframes fadeIn {

@@ -17,9 +17,9 @@
     align-items: center;
 }
   
-.fa-moon {color: #3ba9d5;}
+.fa-moon {color: var(--primary-blue);}
   
-.fa-sun {color: #3ba9d5;}
+.fa-sun {color: var(--primary-blue);}
   
 .checkbox-label .ball {
     background-color: #c2cdf9;
@@ -32,7 +32,7 @@
     transition: transform 0.15s linear;
 }
   
-  .checkbox:checked + .checkbox-label .ball {
+.checkbox:checked + .checkbox-label .ball {
     transform: translateX(24px);
 }
 
@@ -161,3 +161,19 @@
     transform-origin: center;
   }
 
+
+  @media (min-width: 629px) {
+  }
+  
+  @media (max-width: 630px) {
+  }
+  
+  @media (max-width: 1024px) {
+
+  }
+  
+  @media (max-width: 1200px) {
+  }
+  
+  @media (max-width: 1600px) {
+  }

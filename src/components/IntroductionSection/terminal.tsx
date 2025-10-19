@@ -73,7 +73,6 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
                             C:\www\NickTheGreek: &nbsp;
                         </span>
                         <span className="completedLine">
-                            &nbsp;
                             {line}
                         </span>
                     </div>
@@ -84,7 +83,6 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
                     </span>
                     {/* <div className="userInput"></div> */}
                     <span className="currentLine">
-                        &nbsp;
                         {lineIndex < lines.length ?  currentLine : ''}
                     </span>
                     <div className="cursor" />

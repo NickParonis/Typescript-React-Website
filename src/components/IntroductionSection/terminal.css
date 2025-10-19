@@ -35,17 +35,19 @@
     /* overflow-x: hidden; */
     display: flex;
     flex-direction: column;
-    /* padding: 1rem; */
-    /* box-sizing: border-box; */
-    /* background-color: #000; */
-    /* color: #00ff00; */
-    /* font-family: monospace; */
-    /* font-size: 1rem; */
+
     height: 245px;
     white-space: pre-wrap;
     font-size: 1rem;
     line-height: 1.6;
     margin-top: 15px;
+
+    padding: 1rem;
+    box-sizing: border-box;
+    /* background-color: #000;
+    color: #00ff00;
+    font-family: monospace;
+    font-size: 1rem; */
 }
 
 .terminal-body::-webkit-scrollbar {
@@ -58,15 +60,15 @@
 }
 
 .red {
-    background-color: #ff5f56eb;
+    background-color: var(--primary-red);
 }
 
 .yellow {
-    background-color: #ffbd2ee6;
+    background-color: var(--primary-yellow);
 }
 
 .green {
-    background-color: #27c93f;
+    background-color: var(--primary-green);
 }
 
 .prompt {
