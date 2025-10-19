@@ -6,7 +6,7 @@
             "icon": "fa-brands fa-github", 
             "title": "Github", 
             "text": "A sample of my code", 
-            "buttontext": "Visit github",
+            "buttontext": "Visit site",
             "buttonURL": "https://github.com/NickParonis"
         },
         {
@@ -14,7 +14,7 @@
             "icon": "fa-brands fa-linkedin-in", 
             "title": "Linkedin", 
             "text": "My corporate experience", 
-            "buttontext": "Visit linkedIn",
+            "buttontext": "Visit site",
             "buttonURL": "https://www.linkedin.com/in/nick-d-paronis/"
         },
         {
