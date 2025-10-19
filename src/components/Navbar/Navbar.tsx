@@ -84,9 +84,9 @@ const Navbar = () => {
                     </div> */}
 
                     <div className="nav-icons">
-                        <div className="nav-icon" aria-label="Source code" >
+                        {/* <div className="nav-icon" aria-label="Source code" >
                             <i className="fa-brands fa-github"></i>
-                        </div>
+                        </div> */}
                         <div className="nav-icon" aria-label="Source code" >
                             <i className="fa-brands fa-discord"></i>
                         </div>
