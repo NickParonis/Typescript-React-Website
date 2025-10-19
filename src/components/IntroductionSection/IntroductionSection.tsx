@@ -59,18 +59,6 @@ function IntroductionSection() {
     return (
         <section className='introduction'>
             <div className='biosection'>
-                <div className='darkMode'>
-                    <input type="checkbox" 
-                        className="checkbox" 
-                        id="checkbox"
-                        onChange={() => switchLightMode()}>
-                    </input>
-                    <label htmlFor="checkbox" className="checkbox-label">
-                        <i className="fas fa-sun"></i>
-                        <i className="fas fa-moon"></i>
-                        <span className="ball"></span>
-                    </label>
-                </div>
                 <div className='displayGlass'
                 onClick={() => displayRandomQuote()}>
                     <span className="shine"></span>

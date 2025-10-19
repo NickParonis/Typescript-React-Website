@@ -1,0 +1,85 @@
+import "./Navbar.css";
+
+const Navbar = () => {
+
+    const switchLightMode = () => {
+        const root = document.documentElement;
+        if (root.getAttribute('data-theme') === 'light') {
+          root.removeAttribute('data-theme'); // back to :root/default
+        } else {
+          root.setAttribute('data-theme', 'light');
+        }
+    }
+
+    
+    return (
+        <nav id="navbar" className="">
+            <div className="nav-container">
+                <div className="nav-items">
+                    {/* <!-- Logo --> */}
+                    {/* <div className="flex items-center">
+                        <div className="text-xl font-medium bg-gradient-to-r from-indigo-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent flex items-center">
+                            FutureNav
+                        </div>
+                    </div> */}
+
+                    {/* <!-- Desktop Navigation --> */}
+                    <div className="nav-desktop hidden md:flex items-center space-x-1">
+                        <a href="#home" className="nav-link">Home</a>
+                        <a href="#about" className="nav-link">About</a>
+                        <a href="#services" className="nav-link">Services</a>
+                        <a href="#portfolio" className="nav-link">Portfolio</a>
+                        <a href="#contact" className="nav-link">Contact</a>
+                        <div className="relative ml-4 group">
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600/50 to-purple-600/50 rounded-lg blur opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
+                            <button className="contact-btn px-4 py-2 bg-gradient-to-r from-indigo-900/90 to-purple-900/90 rounded-lg text-white text-sm font-medium relative z-10 flex items-center justify-center gap-2 group-hover:from-indigo-800/90 group-hover:to-purple-800/90 transition-all duration-300">
+                                <span className="bg-gradient-to-r from-cyan-300 to-indigo-300 bg-clip-text text-transparent">Connect</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* <!-- Mobile Navigation Button --> */}
+                    <div className="flex md:hidden">
+                        <button id="mobile-menu-button" className="relative w-10 h-10 focus:outline-none group" aria-label="Toggle menu">
+                            <div className="absolute w-5 transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
+                                <span className="block h-0.5 w-5 bg-cyan-400 mb-1 transform transition duration-300 ease-in-out" id="line1"></span>
+                                <span className="block h-0.5 w-5 bg-cyan-400 mb-1 transform transition duration-300 ease-in-out" id="line2"></span>
+                                <span className="block h-0.5 w-5 bg-cyan-400 transform transition duration-300 ease-in-out" id="line3"></span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div className='darkMode'>
+                        <input type="checkbox" 
+                            className="checkbox" 
+                            id="checkbox"
+                            onChange={() => switchLightMode()}>
+                        </input>
+                        <label htmlFor="checkbox" className="checkbox-label">
+                            <i className="fas fa-sun"></i>
+                            <i className="fas fa-moon"></i>
+                            <span className="ball"></span>
+                        </label>
+                    </div>
+                </div>
+
+                {/* <!-- Mobile Menu --> */}
+                <div id="mobile-menu" className="mobile-menu md:hidden h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                    <div className="pt-2 pb-4 space-y-1">
+                        <a href="#home" className="mobile-nav-link block text-gray-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">Home</a>
+                        <a href="#about" className="mobile-nav-link block text-gray-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">About</a>
+                        <a href="#services" className="mobile-nav-link block text-gray-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">Services</a>
+                        <a href="#portfolio" className="mobile-nav-link block text-gray-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">Portfolio</a>
+                        <a href="#contact" className="mobile-nav-link block text-gray-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">Contact</a>
+                        <div className="px-4 pt-2">
+                            <button className="contact-btn w-full px-4 py-2 bg-gradient-to-r from-indigo-700 to-purple-700 rounded-lg text-white text-sm font-medium flex items-center justify-center gap-2 hover:from-indigo-600 hover:to-purple-600 transition-all duration-300">
+                                <span className="bg-gradient-to-r from-cyan-300 to-indigo-300 bg-clip-text text-transparent">Connect</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    );
+}
+export default Navbar;

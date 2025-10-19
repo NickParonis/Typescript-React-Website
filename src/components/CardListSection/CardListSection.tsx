@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Cardsdata from '../../data/cards.json'
 import './Card.css'
+import './CardListSection.css'
 
 const CardListSection = () => {
     const [cards, setCards] = useState([

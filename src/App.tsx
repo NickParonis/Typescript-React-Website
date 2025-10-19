@@ -1,5 +1,7 @@
 import IntroductionSection from './components/IntroductionSection/IntroductionSection.tsx';
-import CardList from './components/CardListSection/CardListSection.tsx';
+import CardListSection from './components/CardListSection/CardListSection.tsx';
+import Navbar from './components/Navbar/Navbar.tsx';
+// import ContactSection from './components/ContactSection/ContactSection.tsx';
 import './index.css'
 // import "./styles/global.css";
 // import ChatSection from './components/ChatSection.tsx';
@@ -8,9 +10,10 @@ import './index.css'
 function App(){
   return (
     <>
+      {/* <Navbar /> */}
       <IntroductionSection />
-      <CardList />
-      {/* <ChatSection /> */}
+      <CardListSection />
+      {/* <ContactSection /> */}
       {/* <BasicModal /> */}
     </>
   );
