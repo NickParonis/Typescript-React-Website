@@ -13,7 +13,7 @@ interface Props {
 const Card = ( props: Props ) => {
 
     const downloadHref = props.downloadFile
-        ? `/src/data/${props.downloadFileName}`
+        ? `/files/${props.downloadFileName}`
         : props.buttonURL;
 
         return (
