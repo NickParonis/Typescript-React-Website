@@ -61,9 +61,9 @@ const Navbar = () => {
                     {/* <!-- Desktop Navigation --> */}
                     <div className="nav-desktop hidden md:flex items-center space-x-1">
                         <a href="#introductionSection" className="nav-link">Home</a>
-                        <a href="#cardlistSection" className="nav-link">About</a>
-                        <a href="#contactSection" className="nav-link">Services</a>
-                        <a href="#musicSection" className="nav-link">Contact</a>
+                        <a href="#cardlistSection" className="nav-link">Experience</a>
+                        <a href="#contactSection" className="nav-link">Contact</a>
+                        {/* <a href="#musicSection" className="nav-link">Contact</a> */}
                         {/* <div className="relative ml-4 group">
                             <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600/50 to-purple-600/50 rounded-lg blur opacity-75 group-hover:opacity-100 transition-all duration-500"></div>
                             <button className="contact-btn px-4 py-2 bg-gradient-to-r from-indigo-900/90 to-purple-900/90 rounded-lg text-white text-sm font-medium relative z-10 flex items-center justify-center gap-2 group-hover:from-indigo-800/90 group-hover:to-purple-800/90 transition-all duration-300">
