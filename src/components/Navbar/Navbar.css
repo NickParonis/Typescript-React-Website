@@ -21,6 +21,14 @@
   color: var(--primary-blue);
   font-size: 21px;
 }
+
+.fa-discord{
+  font-size: 21px;
+}
+
+.fa-github{
+  font-size: 23px;
+}
   
 .fa-sun {
   color: var(--primary-blue);
