@@ -1,3 +1,4 @@
+import {useEffect} from "react";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -10,6 +11,33 @@ const Navbar = () => {
           root.setAttribute('data-theme', 'light');
         }
     }
+
+    useEffect(() => {
+        const links = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
+    
+        links.forEach(link => {
+            const handleClick = (e: Event) => {
+                e.preventDefault();
+    
+                const href = link.getAttribute("href");
+                if (!href) return; // skip if href is null
+    
+                const targetId = href.substring(1); // remove #
+                const targetSection = document.getElementById(targetId);
+    
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: "smooth" });
+                }
+            };
+    
+            link.addEventListener("click", handleClick);
+    
+            // Cleanup function
+            // return () => {
+            //     link.removeEventListener("click", handleClick);
+            // };
+        });
+    }, []);
 
     
     return (
@@ -26,7 +54,7 @@ const Navbar = () => {
                     {/* <!-- Desktop Navigation --> */}
                     <div className="nav-desktop hidden md:flex items-center space-x-1">
                         <a href="#home" className="nav-link">Home</a>
-                        <a href="#about" className="nav-link">About</a>
+                        <a href="#cardList" className="nav-link">About</a>
                         <a href="#services" className="nav-link">Services</a>
                         <a href="#portfolio" className="nav-link">Portfolio</a>
                         <a href="#contact" className="nav-link">Contact</a>
@@ -39,7 +67,7 @@ const Navbar = () => {
                     </div>
 
                     {/* <!-- Mobile Navigation Button --> */}
-                    <div className="flex md:hidden">
+                    {/* <div className="flex md:hidden">
                         <button id="mobile-menu-button" className="relative w-10 h-10 focus:outline-none group" aria-label="Toggle menu">
                             <div className="absolute w-5 transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
                                 <span className="block h-0.5 w-5 bg-cyan-400 mb-1 transform transition duration-300 ease-in-out" id="line1"></span>
@@ -47,7 +75,7 @@ const Navbar = () => {
                                 <span className="block h-0.5 w-5 bg-cyan-400 transform transition duration-300 ease-in-out" id="line3"></span>
                             </div>
                         </button>
-                    </div>
+                    </div> */}
 
                     <div className='darkMode'>
                         <input type="checkbox" 
@@ -64,7 +92,7 @@ const Navbar = () => {
                 </div>
 
                 {/* <!-- Mobile Menu --> */}
-                <div id="mobile-menu" className="mobile-menu md:hidden h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                {/* <div id="mobile-menu" className="mobile-menu md:hidden h-0 overflow-hidden transition-all duration-300 ease-in-out">
                     <div className="pt-2 pb-4 space-y-1">
                         <a href="#home" className="mobile-nav-link block text-gray-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">Home</a>
                         <a href="#about" className="mobile-nav-link block text-gray-300 hover:text-cyan-400 hover:bg-gray-800/50 px-4 py-2 rounded-md transition-colors duration-200">About</a>
@@ -77,7 +105,7 @@ const Navbar = () => {
                             </button>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </nav>
     );

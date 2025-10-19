@@ -26,14 +26,14 @@ function IntroductionSection() {
         }
     };
 
-    const switchLightMode = () => {
-        const root = document.documentElement;
-        if (root.getAttribute('data-theme') === 'light') {
-          root.removeAttribute('data-theme'); // back to :root/default
-        } else {
-          root.setAttribute('data-theme', 'light');
-        }
-    }
+    // const switchLightMode = () => {
+    //     const root = document.documentElement;
+    //     if (root.getAttribute('data-theme') === 'light') {
+    //       root.removeAttribute('data-theme'); // back to :root/default
+    //     } else {
+    //       root.setAttribute('data-theme', 'light');
+    //     }
+    // }
 
     // useEffect(() => {
     //     if (!isTypingDone) {
@@ -57,7 +57,7 @@ function IntroductionSection() {
     // };
 
     return (
-        <section className='introduction'>
+        <section id="introductionSection" className='introduction'>
             <div className='biosection'>
                 <div className='displayGlass'
                 onClick={() => displayRandomQuote()}>
