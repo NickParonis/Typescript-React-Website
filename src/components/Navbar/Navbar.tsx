@@ -64,7 +64,7 @@ const Navbar = () => {
                     </div>
 
                     {/* <!-- Desktop Navigation --> */}
-                    <div className="nav-desktop">
+                    <div className="nav-desktop-menu">
                         <a href="#introductionSection" className="nav-link">Home</a>
                         <a href="#cardlistSection" className="nav-link">Experience</a>
                         <a href="#contactSection" className="nav-link">Contact</a>
@@ -76,17 +76,6 @@ const Navbar = () => {
                             </button>
                         </div> */}
                     </div>
-
-                    {/* <!-- Mobile Navigation Button --> */}
-                    {/* <div className="flex md:hidden">
-                        <button id="mobile-menu-button" className="relative w-10 h-10 focus:outline-none group" aria-label="Toggle menu">
-                            <div className="absolute w-5 transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2">
-                                <span className="block h-0.5 w-5 bg-cyan-400 mb-1 transform transition duration-300 ease-in-out" id="line1"></span>
-                                <span className="block h-0.5 w-5 bg-cyan-400 mb-1 transform transition duration-300 ease-in-out" id="line2"></span>
-                                <span className="block h-0.5 w-5 bg-cyan-400 transform transition duration-300 ease-in-out" id="line3"></span>
-                            </div>
-                        </button>
-                    </div> */}
 
                     <div className="nav-icons">
                         {/* <div className="nav-icon" aria-label="Source code" >
@@ -135,6 +124,12 @@ const Navbar = () => {
                     </div>
                 </div> */}
             </div>
+                {/* <!-- Mobile Navigation Button --> */}
+                <div className={`nav-mobile-menu ${mobileMenuIsActive ? "" : "nav-mobile-menu-inactive"}`}>
+                        <a href="#introductionSection" className="nav-link">Home</a>
+                        <a href="#cardlistSection" className="nav-link">Experience</a>
+                        <a href="#contactSection" className="nav-link">Contact</a>
+                </div>
         </nav>
     );
 }
