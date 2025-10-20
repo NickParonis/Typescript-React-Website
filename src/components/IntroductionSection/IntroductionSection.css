@@ -112,3 +112,21 @@
         opacity: 1;
     }
 }
+
+@media (max-width: 630px) {
+    .introduction{
+        height: 100vh;
+    }
+}
+
+@media (min-width: 629px) {
+}
+
+@media (min-width: 1024px) {
+}
+
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 1600px) {
+}

@@ -249,21 +249,13 @@
 @media (max-width: 630px) {
 	.nav-desktop-menu{
 		display: none;
-}
-
-@media (min-width: 629px) {
-	.nav-mobile-menu{
-		display: none;
 	}
-}
-  
 
-
-    .nav-mobile{
+	.nav-mobile{
     	display: flex;
     }
 
-    .nav-link:hover::after,
+	.nav-link:hover::after,
     .nav-link.active::after {
     	width: 40%;
     }
@@ -272,12 +264,20 @@
     	margin: 5px;
     }
 }
+
+@media (min-width: 629px) {
+	.nav-mobile-menu{
+		display: none;
+	}
+}
+
 @media (min-width: 1024px) {
 	.nav-container{
 		padding-left: 2rem;
 		padding-right: 2rem;
 	}
 }
+
 @media (min-width: 1200px) {
 	.nav-container{
 		padding-left: 5rem;
