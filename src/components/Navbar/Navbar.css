@@ -251,6 +251,11 @@
 		display: none;
 	}
 
+	.displayGlass{
+		position: relative;
+    	top: -10%;
+	}
+
 	.nav-mobile{
     	display: flex;
     }
