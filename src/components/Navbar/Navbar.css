@@ -88,7 +88,7 @@
 }
 
 .nav-mobile-menu-inactive{
-  top: -400%;
+  top: -250%;
 }
 
 .nav-link {
@@ -263,6 +263,10 @@
     .nav-link {
     	margin: 5px;
     }
+
+	#navbar {
+		height: 60px;
+	}
 }
 
 @media (min-width: 629px) {
