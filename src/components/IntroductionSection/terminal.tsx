@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './terminal.css';
+import TerminalLine from './ternimalLine';
 
 interface TerminalProps {
   lines: string[];
@@ -8,14 +9,23 @@ interface TerminalProps {
 
 const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
 
-    const typingSpeed = 50;   // milliseconds per character
+    type Line = {
+        text: string;
+        prompt: string;
+        textColor?: string;
+    };
+
+// const [displayedLines, setDisplayedLines] = useState<Line[]>([]);
+    const typingSpeed = 1;   // milliseconds per character
     const linePause = 1000;   // pause after each line
     const terminalBodyRef = useRef<HTMLDivElement | null>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
-    const [displayedLines, setDisplayedLines] = useState<string[]>([]);
+    const [displayedLines, setDisplayedLines] = useState<Line[]>([]);
     const [currentLine, setCurrentLine] = useState<string>('');
     const [lineIndex, setLineIndex] = useState<number>(0);
     const [charIndex, setCharIndex] = useState<number>(0);
+    const [userInput, setUserInput] = useState<string>('');
 
     useEffect(() => {
         if (lineIndex >= lines.length) {
@@ -33,7 +43,13 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
             }, typingSpeed);
         } else {
             timeout = setTimeout(() => {
-                setDisplayedLines((prev) => [...prev, lines[lineIndex]]);
+                setDisplayedLines((prev) => [
+                    ...prev,
+                    {
+                        text: lines[lineIndex],
+                        prompt: "C:\\www\\NickTheGreek:"
+                    }
+                ]);
                 setCurrentLine('');
                 setCharIndex(0);
                 setLineIndex((prev) => prev + 1);
@@ -57,7 +73,19 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
             terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
         }
     }, [displayedLines, currentLine]);
-
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && userInput.trim() !== '') {
+            setDisplayedLines((prev) => [
+                ...prev,
+                {
+                    text: userInput,
+                    prompt: "C:\\www\\internetUser:",
+                    textColor: '#699269'
+                }
+            ]);
+            setUserInput('');
+        }
+    };
     
     return (
         <div className="terminal">
@@ -68,24 +96,36 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
             </div>
             <div className="terminal-body" ref={terminalBodyRef}>
                 {displayedLines.map((line, idx) => (
-                    <div key={idx}>
-                        <span className="prompt">
-                            C:\www\NickTheGreek: &nbsp;
-                        </span>
-                        <span className="completedLine">
-                            {line}
-                        </span>
-                    </div>
+                    <TerminalLine
+                        key={idx}
+                        prompt={line.prompt}
+                        text={line.text}
+                        textColor={line.textColor}
+                    />
                 ))}
                 <div>
                     <span className="prompt">
-                        C:\www\NickTheGreek: &nbsp;
+                        {lineIndex >= lines.length
+                            ? "C:\\www\\internetUser:"
+                            : "C:\\www\\NickTheGreek:"}
+                        &nbsp;
                     </span>
-                    {/* <div className="userInput"></div> */}
                     <span className="currentLine">
                         {lineIndex < lines.length ?  currentLine : ''}
                     </span>
-                    <div className="cursor" />
+                {lineIndex < lines.length && <div className="cursor" />}
+
+                {lineIndex >= lines.length && (
+                    <input
+                    ref={inputRef}
+                    onKeyDown={handleKeyDown}
+                    type="text"
+                    value={userInput}
+                    onChange={(e) => setUserInput(e.target.value)}
+                    className="userInput"
+                    autoFocus
+                    />
+                )}
                 </div>
             </div>
         </div>

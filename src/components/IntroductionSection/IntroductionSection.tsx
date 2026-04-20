@@ -60,21 +60,22 @@ function IntroductionSection() {
         <section id="introductionSection" className='introduction'>
             <div className='biosection'>
                 <div className='displayGlass'
-                onClick={() => displayRandomQuote()}>
-                    <span className="shine"></span>
-                    <Terminal lines={lines} onTypingDone={() => setIsTypingDone(true)} />
-                    {/* <div className="commandContainer">
-                        <div className="commands">
-                            {commandButtons.map((commandButton) => 
-                                <ActionButton 
-                                    key={commandButton.Name}
-                                    className={commandButton.ClassName} 
-                                    name={commandButton.Name}
-                                    actionCommand={availableCommands[commandButton.Click]} 
-                                />
-                            )}
-                        </div>
-                    </div> */}
+                    onClick={() => displayRandomQuote()}
+                    >
+                        <span className="shine"></span>
+                        <Terminal lines={lines} onTypingDone={() => setIsTypingDone(true)} />
+                        {/* <div className="commandContainer">
+                            <div className="commands">
+                                {commandButtons.map((commandButton) => 
+                                    <ActionButton 
+                                        key={commandButton.Name}
+                                        className={commandButton.ClassName} 
+                                        name={commandButton.Name}
+                                        actionCommand={availableCommands[commandButton.Click]} 
+                                    />
+                                )}
+                            </div>
+                        </div> */}
                 </div>
             </div>
             <div className="bg-animation">
