@@ -1,90 +1,105 @@
-import React, { useEffect, useState, useRef } from 'react';
-import './terminal.css';
-import TerminalLine from './ternimalLine';
+import React, { useEffect, useRef, useState } from "react";
+import "./terminal.css";
+import TerminalLine from "./ternimalLine";
 
 interface TerminalProps {
-  lines: string[];
-  onTypingDone?: () => void;
+    lines: string[];
+    onTypingDone?: () => void;
 }
 
-const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
+type QueueItem = {
+    text: string;
+    prompt: string;
+    textColor?: string;
+    type?: "user" | "ai" | "boot";
+};
 
-    type Line = {
-        text: string;
-        prompt: string;
-        textColor?: string;
-    };
+const typingSpeed = 20;
+const linePause = 400;
 
-// const [displayedLines, setDisplayedLines] = useState<Line[]>([]);
-    const typingSpeed = 1;   // milliseconds per character
-    const linePause = 1000;   // pause after each line
-    const terminalBodyRef = useRef<HTMLDivElement | null>(null);
-    const inputRef = useRef<HTMLInputElement | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [displayedLines, setDisplayedLines] = useState<Line[]>([]);
-    const [currentLine, setCurrentLine] = useState<string>('');
-    const [lineIndex, setLineIndex] = useState<number>(0);
-    const [charIndex, setCharIndex] = useState<number>(0);
-    const [userInput, setUserInput] = useState<string>('');
+const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone }) => {
+const terminalBodyRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        if (lineIndex >= lines.length) {
-        // All lines typed
-            onTypingDone?.();
-            return;
-        }
+const [queue, setQueue] = useState<QueueItem[]>([]);
+const [output, setOutput] = useState<QueueItem[]>([]);
+const [currentText, setCurrentText] = useState("");
+const [index, setIndex] = useState(0);
+const inputRef = useRef<HTMLInputElement | null>(null);
+const [userInput, setUserInput] = useState("");
+const [isLoading, setIsLoading] = useState(false);
 
-        let timeout: NodeJS.Timeout;
+const pushToTerminal = (item: QueueItem) => {
+    setQueue((prev) => [...prev, item]);
+};
 
-        if (charIndex < lines[lineIndex].length) {
-            timeout = setTimeout(() => {
-                setCurrentLine((prev) => prev + lines[lineIndex][charIndex]);
-                setCharIndex((prev) => prev + 1);
-            }, typingSpeed);
-        } else {
-            timeout = setTimeout(() => {
-                setDisplayedLines((prev) => [
-                    ...prev,
-                    {
-                        text: lines[lineIndex],
-                        prompt: "C:\\www\\NickTheGreek:"
-                    }
-                ]);
-                setCurrentLine('');
-                setCharIndex(0);
-                setLineIndex((prev) => prev + 1);
-            }, linePause);
-        }
+useEffect(() => {
+    setQueue(
+        lines.map((line) => ({
+            text: line,
+            prompt: "C:\\www\\NickTheGreek:",
+        }))
+    );
+}, [lines]);
+
+useEffect(() => {
+    if (index >= queue.length) {
+        onTypingDone?.();
+        return;
+    }
+
+    const item = queue[index];
+
+if (!item) return;
+
+// 👇 USER ITEMS: always instant, never enter typing state
+if (item.type === "user") {
+    setOutput((prev) => [...prev, item]);
+    setIndex((prev) => prev + 1);
+    setCurrentText("");
+    return;
+}
+
+    if (currentText.length < item.text.length) {
+        const timeout = setTimeout(() => {
+            setCurrentText((prev) => prev + item.text[currentText.length]);
+        }, typingSpeed);
 
         return () => clearTimeout(timeout);
-    }, [charIndex, lineIndex, lines]);
-    
-    useEffect(() => {
-        if (lines.length === 0) {
-            setDisplayedLines([]);
-            setCurrentLine('');
-            setLineIndex(0);
-            setCharIndex(0);
-        }
-    }, [lines]);
+    }
 
+    const timeout = setTimeout(() => {
+        setOutput((prev) => [...prev, item]);
+        setCurrentText("");
+        setIndex((prev) => prev + 1);
+    }, linePause);
+
+    return () => clearTimeout(timeout);
+}, [queue, index, currentText]);
+
+    // -----------------------------
+    // Auto-scroll
+    // -----------------------------
     useEffect(() => {
         if (terminalBodyRef.current) {
-            terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
+            terminalBodyRef.current.scrollTop =
+                terminalBodyRef.current.scrollHeight;
         }
-    }, [displayedLines, currentLine]);
+    }, [output, currentText]);
 
+    // -----------------------------
+    // API call
+    // -----------------------------
     const sendMessage = async (input: string) => {
         try {
-            const response = await fetch('/.netlify/functions/chat', {
-                method: 'POST',
+            const response = await fetch("/.netlify/functions/chat", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     messages: [
                         {
-                            role: 'user',
+                            role: "user",
                             content: input,
                         },
                     ],
@@ -92,48 +107,48 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
             });
 
             const data = await response.json();
-
             return data.message;
-        } catch (err) {
+        } catch {
             return "Error connecting to AI";
         }
     };
 
-    const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && userInput.trim() !== '') {
+    // -----------------------------
+    // Input handler
+    // -----------------------------
+    const handleKeyDown = async (
+        e: React.KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (e.key !== "Enter" || !userInput.trim()) return;
 
-            const input = userInput;
+        const input = userInput;
+        setUserInput("");
 
-            setDisplayedLines(prev => [
-                ...prev,
-                {
-                    text: input,
-                    prompt: "C:\\www\\AnonymousUser:",
-                    textColor: "#077a07"
-                }
-            ]);
+        // user line
+        pushToTerminal({
+            text: input,
+            prompt: "C:\\www\\AnonymousUser:",
+            textColor: "#077a07",
+            type: "user",
+        });
 
-            setUserInput('');
+        setIsLoading(true);
 
-            // ✔ HERE: start loading
-            setIsLoading(true);
+        // AI response
+        const aiResponse = await sendMessage(input);
 
-            const aiResponse = await sendMessage(input);
+        setIsLoading(false);
 
-            // ✔ HERE: stop loading
-            setIsLoading(false);
-
-            setDisplayedLines(prev => [
-                ...prev,
-                {
-                    text: aiResponse,
-                    prompt: "C:\\www\\NickTheGreek:",
-                    textColor: "#ffffff"
-                }
-            ]);
-        }
+        pushToTerminal({
+            text: aiResponse,
+            prompt: "C:\\www\\NickTheGreek:",
+            textColor: "#ffffff",
+        });
     };
-    
+
+    // -----------------------------
+    // Render
+    // -----------------------------
     return (
         <div className="terminal">
             <div className="terminal-header">
@@ -141,8 +156,10 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
                 <span className="yellow" />
                 <span className="green" />
             </div>
+
             <div className="terminal-body" ref={terminalBodyRef}>
-                {displayedLines.map((line, idx) => (
+                {/* committed output */}
+                {output.map((line, idx) => (
                     <TerminalLine
                         key={idx}
                         prompt={line.prompt}
@@ -150,31 +167,37 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
                         textColor={line.textColor}
                     />
                 ))}
-                <div>
-                    <span className="prompt">
-                        {lineIndex >= lines.length
-                            ? "C:\\www\\internetUser:"
-                            : "C:\\www\\NickTheGreek:"}
-                        &nbsp;
-                    </span>
-                    <span className="currentLine">
-                        {lineIndex < lines.length ?  currentLine : ''}
-                    </span>
-                {lineIndex < lines.length && <div className="cursor" />}
 
-                {lineIndex >= lines.length && (
-                    <input
-                    ref={inputRef}
-                    onKeyDown={handleKeyDown}
-                    type="text"
-                    value={userInput}
-                    onChange={(e) => setUserInput(e.target.value)}
-                    className="userInput"
-                    autoFocus
-                    disabled={isLoading}
+                {/* live typing line */}
+                {index < queue.length && (
+                    <TerminalLine
+                        prompt={queue[index].prompt}
+                        text={currentText}
+                        textColor={queue[index].textColor}
                     />
                 )}
-                </div>
+
+                {/* input */}
+{index >= queue.length && (
+    <div>
+        <span className="prompt">
+            C:\www\AnonymousUser:&nbsp;
+        </span>
+
+        <input
+            ref={inputRef}
+            type="text"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="userInput"
+            autoFocus
+            disabled={isLoading}
+        />
+
+        {isLoading && <span className="cursor" />}
+    </div>
+)}
             </div>
         </div>
     );
