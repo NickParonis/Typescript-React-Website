@@ -11,12 +11,12 @@ const name = "Nick Paronis";
 /* -------------------------------------------------- */
 
 function loadSummary() {
-  const summaryPath = path.join(__dirname, "../src/data/summary.txt");
+  const summaryPath = path.join(__dirname, "../data/summary.txt");
   return fs.readFileSync(summaryPath, "utf8");
 }
 
 async function loadLinkedIn() {
-  const pdfPath = path.join(__dirname, "../src/data/linkedin.pdf");
+  const pdfPath = path.join(__dirname, "../data/linkedin.pdf");
   const buffer = fs.readFileSync(pdfPath);
 
   const data = await pdfParse(buffer);
