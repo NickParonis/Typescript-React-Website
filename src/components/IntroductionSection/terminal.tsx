@@ -20,7 +20,7 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
     const linePause = 1000;   // pause after each line
     const terminalBodyRef = useRef<HTMLDivElement | null>(null);
     const inputRef = useRef<HTMLInputElement | null>(null);
-
+    const [isLoading, setIsLoading] = useState(false);
     const [displayedLines, setDisplayedLines] = useState<Line[]>([]);
     const [currentLine, setCurrentLine] = useState<string>('');
     const [lineIndex, setLineIndex] = useState<number>(0);
@@ -73,17 +73,64 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
             terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
         }
     }, [displayedLines, currentLine]);
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+
+    const sendMessage = async (input: string) => {
+        try {
+            const response = await fetch('/.netlify/functions/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    messages: [
+                        {
+                            role: 'user',
+                            content: input,
+                        },
+                    ],
+                }),
+            });
+
+            const data = await response.json();
+
+            return data.message;
+        } catch (err) {
+            return "Error connecting to AI";
+        }
+    };
+
+    const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && userInput.trim() !== '') {
-            setDisplayedLines((prev) => [
+
+            const input = userInput;
+
+            setDisplayedLines(prev => [
                 ...prev,
                 {
-                    text: userInput,
-                    prompt: "C:\\www\\internetUser:",
-                    textColor: '#699269'
+                    text: input,
+                    prompt: "C:\\www\\AnonymousUser:",
+                    textColor: "#077a07"
                 }
             ]);
+
             setUserInput('');
+
+            // ✔ HERE: start loading
+            setIsLoading(true);
+
+            const aiResponse = await sendMessage(input);
+
+            // ✔ HERE: stop loading
+            setIsLoading(false);
+
+            setDisplayedLines(prev => [
+                ...prev,
+                {
+                    text: aiResponse,
+                    prompt: "C:\\www\\NickTheGreek:",
+                    textColor: "#ffffff"
+                }
+            ]);
         }
     };
     
@@ -124,6 +171,7 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone })  => {
                     onChange={(e) => setUserInput(e.target.value)}
                     className="userInput"
                     autoFocus
+                    disabled={isLoading}
                     />
                 )}
                 </div>
