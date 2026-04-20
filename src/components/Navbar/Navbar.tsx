@@ -68,6 +68,7 @@ const Navbar = () => {
                         <a href="#introductionSection" className="nav-link">Home</a>
                         <a href="#cardlistSection" className="nav-link">Experience</a>
                         <a href="#contactSection" className="nav-link">Contact</a>
+                        <a href="#aboutSection" className="nav-link">About</a>
                     </div>
 
                     <div className="nav-icons">

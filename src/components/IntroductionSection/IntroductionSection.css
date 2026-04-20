@@ -48,9 +48,25 @@
     width: 100%;
 }
 
-.displayGlass:hover .shine {
+/* .displayGlass:hover .shine {
     top: 110%;
     transition: 0.5s;
+} */
+
+.shine {
+    animation: shineAnimation 40s infinite;
+}
+
+@keyframes shineAnimation {
+    0% {
+        top: -110%; /* Or whatever the initial top value is (e.g., -100%) */
+    }
+    1% {
+        top: 110%; /* Back to initial */
+    }
+    100% {
+        top: 110%;
+    }
 }
 
 .title{

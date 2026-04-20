@@ -2,7 +2,7 @@
       /* Apply to the .card class */
 
     opacity: 0; /* start invisible */
-    animation: fadeIn 1s ease-in forwards; /* 1s fade-in, keep final state */
+    animation: fadeIn 1s ease-in forwards;/* 1s fade-in, keep final state */
     margin: 25px;
     font-family: inherit;
     height: 270px;

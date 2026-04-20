@@ -1,0 +1,11 @@
+.aboutsection{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    z-index: 30;
+    position: relative;
+    height: 60vh;
+}
+
