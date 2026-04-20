@@ -10,27 +10,27 @@ const name = "Nick Paronis";
 /* Load Files                                         */
 /* -------------------------------------------------- */
 
-function loadSummary() {
-  const summaryPath = path.resolve("../data/summary.txt");
-  return fs.readFileSync(summaryPath, "utf8");
-}
+// function loadSummary() {
+//   const summaryPath = path.resolve("../data/summary.txt");
+//   return fs.readFileSync(summaryPath, "utf8");
+// }
 
-async function loadLinkedIn() {
-  const pdfPath = path.resolve("../data/linkedin.pdf");
+// async function loadLinkedIn() {
+//   const pdfPath = path.resolve("../data/linkedin.pdf");
 
-  const buffer = fs.readFileSync(pdfPath);
-  const data = await pdfParse(buffer);
+//   const buffer = fs.readFileSync(pdfPath);
+//   const data = await pdfParse(buffer);
 
-  return data.text;
-}
+//   return data.text;
+// }
 
 /* -------------------------------------------------- */
 /* Build System Prompt                                */
 /* -------------------------------------------------- */
 
 async function buildSystemPrompt() {
-  const summary = loadSummary();
-  const linkedin = await loadLinkedIn();
+//   const summary = loadSummary();
+//   const linkedin = await loadLinkedIn();
 
   let system_prompt = `You are acting as ${name}. You are answering questions on ${name}'s website,
 particularly questions related to ${name}'s career, background, skills and experience.
@@ -39,8 +39,8 @@ You are given a summary of ${name}'s background and LinkedIn profile which you c
 Be professional and engaging, as if talking to a potential client or future employer who came across the website.
 If you don't know the answer, say so.`;
 
-  system_prompt += `\n\n## Summary:\n${summary}`;
-  system_prompt += `\n\n## LinkedIn Profile:\n${linkedin}`;
+//   system_prompt += `\n\n## Summary:\n${summary}`;
+//   system_prompt += `\n\n## LinkedIn Profile:\n${linkedin}`;
   system_prompt += `\n\nWith this context, please chat with the user, always staying in character as ${name}.`;
 
   return system_prompt;
