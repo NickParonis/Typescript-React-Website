@@ -14,71 +14,68 @@ type QueueItem = {
     type?: "user" | "ai" | "boot";
 };
 
-const typingSpeed = 20;
+const typingSpeed = 30;
 const linePause = 400;
 
 const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone }) => {
-const terminalBodyRef = useRef<HTMLDivElement | null>(null);
+    const terminalBodyRef = useRef<HTMLDivElement | null>(null);
 
-const [queue, setQueue] = useState<QueueItem[]>([]);
-const [output, setOutput] = useState<QueueItem[]>([]);
-const [currentText, setCurrentText] = useState("");
-const [index, setIndex] = useState(0);
-const inputRef = useRef<HTMLInputElement | null>(null);
-const [userInput, setUserInput] = useState("");
-const [isLoading, setIsLoading] = useState(false);
+    const [queue, setQueue] = useState<QueueItem[]>([]);
+    const [output, setOutput] = useState<QueueItem[]>([]);
+    const [currentText, setCurrentText] = useState("");
+    const [index, setIndex] = useState(0);
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const [userInput, setUserInput] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-const pushToTerminal = (item: QueueItem) => {
-    setQueue((prev) => [...prev, item]);
-};
+    const pushToTerminal = (item: QueueItem) => {
+        setQueue((prev) => [...prev, item]);
+    };
 
-useEffect(() => {
-    setQueue(
-        lines.map((line) => ({
-            text: line,
-            prompt: "C:\\www\\NickTheGreek:",
-        }))
-    );
-}, [lines]);
+    useEffect(() => {
+        setQueue(
+            lines.map((line) => ({
+                text: line,
+                prompt: "C:\\www\\NickTheGreek:",
+            }))
+        );
+    }, [lines]);
 
-useEffect(() => {
-    if (index >= queue.length) {
-        onTypingDone?.();
+    useEffect(() => {
+        if (index >= queue.length) {
+            onTypingDone?.();
+            return;
+        }
+
+        const item = queue[index];
+
+    if (!item) return;
+
+    // 👇 USER ITEMS: always instant, never enter typing state
+    if (item.type === "user") {
+        setOutput((prev) => [...prev, item]);
+        setIndex((prev) => prev + 1);
+        setCurrentText("");
         return;
     }
 
-    const item = queue[index];
+        if (currentText.length < item.text.length) {
+            const timeout = setTimeout(() => {
+                setCurrentText((prev) => prev + item.text[currentText.length]);
+            }, typingSpeed);
 
-if (!item) return;
+            return () => clearTimeout(timeout);
+        }
 
-// 👇 USER ITEMS: always instant, never enter typing state
-if (item.type === "user") {
-    setOutput((prev) => [...prev, item]);
-    setIndex((prev) => prev + 1);
-    setCurrentText("");
-    return;
-}
-
-    if (currentText.length < item.text.length) {
         const timeout = setTimeout(() => {
-            setCurrentText((prev) => prev + item.text[currentText.length]);
-        }, typingSpeed);
+            setOutput((prev) => [...prev, item]);
+            setCurrentText("");
+            setIndex((prev) => prev + 1);
+        }, linePause);
 
         return () => clearTimeout(timeout);
-    }
+    }, [queue, index, currentText]);
 
-    const timeout = setTimeout(() => {
-        setOutput((prev) => [...prev, item]);
-        setCurrentText("");
-        setIndex((prev) => prev + 1);
-    }, linePause);
-
-    return () => clearTimeout(timeout);
-}, [queue, index, currentText]);
-
-    // -----------------------------
-    // Auto-scroll
-    // -----------------------------
     useEffect(() => {
         if (terminalBodyRef.current) {
             terminalBodyRef.current.scrollTop =
@@ -86,9 +83,6 @@ if (item.type === "user") {
         }
     }, [output, currentText]);
 
-    // -----------------------------
-    // API call
-    // -----------------------------
     const sendMessage = async (input: string) => {
         try {
             const response = await fetch("/.netlify/functions/chat", {
@@ -113,9 +107,6 @@ if (item.type === "user") {
         }
     };
 
-    // -----------------------------
-    // Input handler
-    // -----------------------------
     const handleKeyDown = async (
         e: React.KeyboardEvent<HTMLInputElement>
     ) => {
@@ -146,9 +137,6 @@ if (item.type === "user") {
         });
     };
 
-    // -----------------------------
-    // Render
-    // -----------------------------
     return (
         <div className="terminal">
             <div className="terminal-header">
