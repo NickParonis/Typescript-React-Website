@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const pdfParse = require("pdf-parse");
+const fetch = require("node-fetch");
 
 const apiKey = process.env.OPENAI_API_KEY;
 
