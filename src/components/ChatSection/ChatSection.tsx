@@ -6,14 +6,14 @@ interface Message {
   content: string;
 }
 
-const SYSTEM_PROMPT = `You are a helpful AI assistant representing a professional. 
-You have knowledge about the person and can answer questions about their background, skills, and experience.
+// const SYSTEM_PROMPT = `You are a helpful AI assistant representing a professional. 
+// You have knowledge about the person and can answer questions about their background, skills, and experience.
 
-User Details:
-- You are speaking on behalf of a developer
-- You are knowledgeable about web development, React, TypeScript, and UI design
-- You are friendly, professional, and helpful
-- Keep responses concise and relevant`;
+// User Details:
+// - You are speaking on behalf of a developer
+// - You are knowledgeable about web development, React, TypeScript, and UI design
+// - You are friendly, professional, and helpful
+// - Keep responses concise and relevant`;
 
 export const ChatSection: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
