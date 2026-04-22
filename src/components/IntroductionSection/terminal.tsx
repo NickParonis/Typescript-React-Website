@@ -5,6 +5,7 @@ import TerminalLine from "./ternimalLine";
 interface TerminalProps {
     lines: string[];
     onTypingDone?: () => void;
+    onCommand?: (command: string) => void;
 }
 
 type QueueItem = {
@@ -21,8 +22,7 @@ type ChatMessage = {
 const typingSpeed = 30;
 const linePause = 400;
 
-const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone }) => {
-
+const Terminal: React.FC<TerminalProps> = ({lines, onTypingDone, onCommand }) => {
 
     const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
     const terminalBodyRef = useRef<HTMLDivElement | null>(null);
@@ -56,15 +56,15 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone }) => {
 
         const item = queue[index];
 
-    if (!item) return;
+        if (!item) return;
 
-    // 👇 USER ITEMS: always instant, never enter typing state
-    if (item.type === "user") {
-        setOutput((prev) => [...prev, item]);
-        setIndex((prev) => prev + 1);
-        setCurrentText("");
-        return;
-    }
+        // 👇 USER ITEMS: always instant, never enter typing state
+        if (item.type === "user") {
+            setOutput((prev) => [...prev, item]);
+            setIndex((prev) => prev + 1);
+            setCurrentText("");
+            return;
+        }
 
         if (currentText.length < item.text.length) {
             const timeout = setTimeout(() => {
@@ -123,9 +123,7 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone }) => {
         }
     };
 
-    const handleKeyDown = async (
-        e: React.KeyboardEvent<HTMLInputElement>
-    ) => {
+    const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key !== "Enter" || !userInput.trim()) return;
 
         const input = userInput;
@@ -138,6 +136,11 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone }) => {
             textColor: "#1E90FF",
             type: "user",
         });
+
+        if (input.startsWith("/")) {
+            onCommand?.(input);
+            return;
+        }
 
         setIsLoading(true);
 

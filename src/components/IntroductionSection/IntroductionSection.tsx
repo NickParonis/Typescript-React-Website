@@ -16,13 +16,34 @@ function IntroductionSection() {
     // const [teminalMenu] = useState("mainMenu");
 
     const displayRandomQuote = () => {
-        if (isTypingDone) { 
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            const quote = quotes[randomIndex];
-            if (quote) {
-                setIsTypingDone(false);
-                setLines(prev => [...prev, "---", quote.author + ": ", quote.quoteText]);
-            }
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const quote = quotes[randomIndex];
+
+        if (!quote) return;
+
+        setLines(prev => [
+            ...prev,
+            "---",
+            `${quote.author}: `,
+            quote.quoteText
+        ]);
+    };
+
+        const displayUnknownCommand = () => {
+
+        setLines(prev => [
+            ...prev,
+            "---",
+            `Unknown command. Right now you can use /wisdom to get some wisdom from planet earth`,
+        ]);
+    };
+
+    const handleCommand = (command: string) => {
+        if (command === "/wisdom") {
+            displayRandomQuote();
+        }
+        else{
+            displayUnknownCommand();
         }
     };
 
@@ -60,10 +81,10 @@ function IntroductionSection() {
         <section id="introductionSection" className='introduction'>
             <div className='biosection'>
                 <div className='displayGlass'
-                    onClick={() => displayRandomQuote()}
+                    // onClick={() => displayRandomQuote()}
                     >
                         <span className="shine"></span>
-                        <Terminal lines={lines} onTypingDone={() => setIsTypingDone(true)} />
+                        <Terminal lines={lines} onTypingDone={() => setIsTypingDone(true)} onCommand={handleCommand}/>
                         {/* <div className="commandContainer">
                             <div className="commands">
                                 {commandButtons.map((commandButton) => 
