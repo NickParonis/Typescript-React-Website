@@ -13,11 +13,18 @@ type QueueItem = {
     textColor?: string;
     type?: "user" | "ai" | "boot";
 };
+type ChatMessage = {
+    role: "user" | "assistant";
+    content: string;
+};
 
 const typingSpeed = 30;
 const linePause = 400;
 
 const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone }) => {
+
+
+    const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
     const terminalBodyRef = useRef<HTMLDivElement | null>(null);
 
     const [queue, setQueue] = useState<QueueItem[]>([]);
@@ -84,6 +91,11 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone }) => {
     }, [output, currentText]);
 
     const sendMessage = async (input: string) => {
+        const updatedHistory: ChatMessage[] = [
+            ...chatHistory,
+            { role: "user", content: input },
+        ];
+
         try {
             const response = await fetch("/.netlify/functions/chat", {
                 method: "POST",
@@ -91,17 +103,21 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone }) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    messages: [
-                        {
-                            role: "user",
-                            content: input,
-                        },
-                    ],
+                    messages: updatedHistory,
                 }),
             });
 
             const data = await response.json();
-            return data.message;
+
+            const aiReply = data.message;
+
+            // save BOTH user + assistant messages
+            setChatHistory([
+                ...updatedHistory,
+                { role: "assistant", content: aiReply },
+            ]);
+
+            return aiReply;
         } catch {
             return "Error connecting to AI";
         }
