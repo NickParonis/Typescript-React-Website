@@ -135,7 +135,7 @@ const Terminal: React.FC<TerminalProps> = ({ lines, onTypingDone }) => {
         pushToTerminal({
             text: input,
             prompt: "C:\\www\\AnonymousUser:",
-            textColor: "#077a07",
+            textColor: "#1E90FF",
             type: "user",
         });
 
