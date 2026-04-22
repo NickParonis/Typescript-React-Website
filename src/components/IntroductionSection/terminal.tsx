@@ -202,7 +202,7 @@ const Terminal: React.FC<TerminalProps> = ({lines, onTypingDone, onCommand }) =>
             disabled={isLoading}
         />
 
-        {isLoading && <span className="cursor" />}
+        {/* {isLoading && <span className="cursor" />} */}
     </div>
 )}
             </div>
