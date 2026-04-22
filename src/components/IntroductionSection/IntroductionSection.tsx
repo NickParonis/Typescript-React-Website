@@ -27,6 +27,8 @@ function IntroductionSection() {
             `${quote.author}: `,
             quote.quoteText
         ]);
+
+        isTypingDone && setIsTypingDone(false);
     };
 
         const displayUnknownCommand = () => {
